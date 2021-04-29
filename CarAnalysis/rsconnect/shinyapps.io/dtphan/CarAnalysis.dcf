@@ -1,0 +1,13 @@
+name: CarAnalysis
+title: CarAnalysis
+username:
+account: dtphan
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4054414
+bundleId: 4536967
+url: https://dtphan.shinyapps.io/CarAnalysis/
+when: 1619730578.78571
+lastSyncTime: 1619730578.78571
+asMultiple: FALSE
+asStatic: FALSE

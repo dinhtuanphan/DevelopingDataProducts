@@ -1,0 +1,73 @@
+---
+title: "Car Analysis"
+author: "Dinh Tuan Phan"
+date: "4/29/2021"
+output: html_document
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+
+This peer assessed assignment has two parts. First, you will create a Shiny application and deploy it on Rstudio's servers. Second, you will use Slidify or Rstudio Presenter to prepare a reproducible pitch presentation about your application.
+
+
+## Overview
+
+The shiny app plots the relationship between different inputs from the mtcars dataset.
+
+```{r }
+head(mtcars)
+```
+
+## UI Code
+
+```{r echo=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
+
+library(shiny)
+shinyUI(fluidPage(
+    
+    # Application title
+    titlePanel("Car Analysis"),
+    
+    sidebarPanel(
+        
+        selectInput("variable", "Variable:", 
+                    c("Miles per gallon" = "mpg",
+                      "Distance" = "disp",
+                      "Cylinder" = "cyl"))
+    ),
+    
+    mainPanel(
+        h3(textOutput("caption")),
+
+        plotOutput("carPlot")
+    )
+))
+```
+
+## Server Code
+
+```{r echo=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
+data('mtcars')
+
+library(shiny)
+library(plotly)
+shinyServer(function(input, output) {
+    
+    formulaText <- reactive({
+        paste("hp vs ", input$variable)
+    })
+    
+    output$caption <- renderText({
+        formulaText()
+    })
+    output$carPlot <- renderPlot({
+       ggplot(mtcars,aes_string(x='hp',y=input$variable, col='hp')) + geom_point()
+    })
+    
+})
+```
